@@ -1,4 +1,11 @@
-import { INCREASE, DECREASE, REMOVE, CLEAR_CART, COUNT_TOTAL } from "./actions";
+import {
+  INCREASE,
+  DECREASE,
+  REMOVE,
+  CLEAR_CART,
+  GET_TOTAL,
+  GET_AMOUNT
+} from "./actions";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -25,7 +32,13 @@ function reducer(state, action) {
       };
     case CLEAR_CART:
       return { ...state, cart: [] };
-    case COUNT_TOTAL:
+    case GET_AMOUNT:
+      const amount = state.cart.reduce((total, cartItem) => {
+        const { amount } = cartItem;
+        return (total += amount);
+      }, 0);
+      return { ...state, amount };
+    case GET_TOTAL:
       let total = state.cart.reduce((total, cartItem) => {
         const { price, amount } = cartItem;
         const itemTotal = price * amount;
@@ -33,6 +46,7 @@ function reducer(state, action) {
       }, 0);
       total = parseFloat(total.toFixed(2));
       return { ...state, total };
+
     default:
       return state;
   }

@@ -2,10 +2,11 @@ import React from "react";
 import CartItem from "./CartItem";
 // react-redux
 import { connect } from "react-redux";
-import { CLEAR_CART, COUNT_TOTAL } from "../actions";
-const CartContainer = ({ cart, clear, total, dispatch }) => {
+import { CLEAR_CART, GET_TOTAL, GET_AMOUNT } from "../actions";
+const CartContainer = ({ cart, total, dispatch }) => {
   React.useEffect(() => {
-    dispatch({ type: COUNT_TOTAL });
+    dispatch({ type: GET_TOTAL });
+    dispatch({ type: GET_AMOUNT });
   });
   if (cart.length === 0) {
     return (
@@ -52,9 +53,5 @@ const CartContainer = ({ cart, clear, total, dispatch }) => {
 function mapStateToProps(state) {
   return { cart: state.cart, total: state.total };
 }
-function mapDispatchToProps(dispatch) {
-  return {
-    clear: () => dispatch({ type: CLEAR_CART })
-  };
-}
+
 export default connect(mapStateToProps)(CartContainer);

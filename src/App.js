@@ -15,7 +15,7 @@ import reducer from "./reducer";
 const defaultStore = {
   cart: cartItems,
   total: 0,
-  name: "john"
+  amount: 0
 };
 // setup store
 const store = createStore(reducer, defaultStore);
