@@ -23,8 +23,16 @@ function reducer(state, action) {
         tempCart = state.cart.filter(
           cartItem => cartItem.id !== action.payload.id
         );
+      } else {
+        tempCart = state.cart.map(cartItem => {
+          if (cartItem.id === action.payload.id) {
+            cartItem = { ...cartItem, amount: cartItem.amount - 1 };
+          }
+          return cartItem;
+        });
       }
       return { ...state, cart: tempCart };
+
     case REMOVE:
       return {
         ...state,
